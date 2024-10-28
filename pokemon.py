@@ -1,7 +1,9 @@
 from termcolor import colored
 
+import shutil
+
 class Pokemon:
-    def __init__ (self, name: str, type: str, health: int, power: int, poison_rate: float, poison_description: str, potion_rate: float, potion_description: str):
+    def __init__ (self, name: str, type: str, health: int, power: int, looks: str, poison_rate: float, poison_description: str, potion_rate: float, potion_description: str):
         # name color
         if type == "fire":
             name_color = "red"
@@ -15,6 +17,7 @@ class Pokemon:
         self.type = type
         self.health = health
         self.power = power
+        self.looks = looks
         self.poison_rate = poison_rate
         self.poison_description = poison_description
         self.potion_rate = potion_rate
@@ -121,7 +124,7 @@ class Pokemon:
                 return False
 
     @staticmethod
-    def pre_battle_interface(player_name: str, player_pokemon: object, enemy_player_name: str, enemy_pokemon: object) -> int:
+    def pre_battle_interface(player_name: str, player_pokemon: object) -> int:
         while True:
             print("1. Fight")
             print("2. Pokemon")
@@ -130,27 +133,30 @@ class Pokemon:
             choice = int(input(f"What will {player_name} will do? "))
             if choice in list(range(1, 5)):
                 if choice == 1:
-                    Pokemon.battle_interface(player_pokemon, enemy_player_name, enemy_pokemon)
+                    print(f"\nYou randomly sent{player_pokemon.name}\n")
+                    while True:   
+                        print("1. Normal Attack")
+                        print("2. Poison Spell")
+                        print("3. Potion Spell")
+                        player_action = int(input(f"{player_pokemon.name} will use: "))
+                        if player_action in list(range(1, 4)):
+                            return player_action
+                        else:
+                            print(f"{player_action} was not a valid keyword\n")
+                if choice == 2:
+                    pass
+                if choice == 3:
+                    pass
+                if choice == 4:
+                    pass
             else:
                 print(f"{choice} was not a valid keyword\n")
-    
-    @staticmethod
-    def battle_interface(player_pokemon: object, enemy_player_name: str, enemy_pokemon: object) -> int:
-        print(f"{enemy_player_name} sent out {enemy_pokemon.name}")
-        print(f"You sent {player_pokemon.name}\n")
-
-        while True:   
-            print("1. Normal Attack")
-            print("2. Poison Spell")
-            print("3. Potion Spell")
-            player_action = int(input(f"{player_pokemon.name} will use: "))
-            if player_action in list(range(1, 4)):
-                return player_action
-            else:
-                print(f"{player_action} was not a valid keyword\n")
-    
+                
+    round_number = 0
     @staticmethod
     def battle(player1_pokemon_action: int, player1_current_pokemon: object, player2_pokemon_action: int, player2_current_pokemon: object) -> None:
+        Pokemon.round_number += 1
+        
         # if either of the 2 players used a pokemon's poison or potion
         if player1_pokemon_action == 2:
             player1_current_pokemon.poison(player2_current_pokemon)
