@@ -109,77 +109,84 @@ while i < 6:
         print(f"{pick_pokemon} is not a valid keyword\n")
 
 # Game
-pre_battle = Pre_Battle_Animation(player1_pokemon, player2_pokemon)
-pre_battle.randomizer_animation()
-
-player1_temporary_buff = False
-player2_temporary_buff = False
-
-if pre_battle.battlefield == colored("Waterfall Arena", "blue", attrs=["bold"]) and pre_battle.player1_pokemon.type == "water":
-    pre_battle.player1_buff(10)
-    player1_temporary_buff = True
-if pre_battle.battlefield == colored("Volcanic Field", "red", attrs=["bold"]) and pre_battle.player1_pokemon.type == "fire":
-    pre_battle.player1_buff(10)
-    player1_temporary_buff = True
-if pre_battle.battlefield == colored("Green Land", "green", attrs=["bold"]) and pre_battle.player1_pokemon.type == "grass":
-    pre_battle.player1_buff(10)
-    player1_temporary_buff = True
-if pre_battle.battlefield == colored("Waterfall Arena", "blue", attrs=["bold"]) and pre_battle.player2_pokemon.type == "water":
-    pre_battle.player2_buff(10)
-    player2_temporary_buff = True
-if pre_battle.battlefield == colored("Volcanic Field", "red", attrs=["bold"]) and pre_battle.player2_pokemon.type == "fire":
-    pre_battle.player2_buff(10)
-    player2_temporary_buff = True
-if pre_battle.battlefield == colored("Green Land", "green", attrs=["bold"]) and pre_battle.player2_pokemon.type == "grass":
-    pre_battle.player2_buff(10)
-    player2_temporary_buff = True
-    
-
-def pre_battle_interface(player_name: str, player_pokemon: object):
-    while True:
-        print("1. Fight")
-        print("2. Pokemon")
-        print("3. Record")
-        print("4. Run")
-        choice = int(input(f"What will {player_name} do? "))
-        if choice in list(range(1, 5)):
-            os.system("cls")
-            pre_battle.last_frame()
-            if choice == 1:
-                print(f"\nYou randomly sent {player_pokemon.name}\n")
-                while True:   
-                    print("1. Attack")
-                    print("2. Poison Spell")
-                    print("3. Potion Spell")
-                    player_action = int(input(f"{player_pokemon.name} will use: "))
-                    if player_action in list(range(1, 4)): 
-                        return player_action
-                    else:
-                        print(f"{player_action} was not a valid keyword\n")
-            if choice == 2:
-                pass
-            if choice == 3:
-                pass
-            if choice == 4:
-                pass
-        else:
-            print(f"{choice} was not a valid keyword\n")
-
 while True:
-    player1_action = pre_battle_interface(player1, pre_battle.player1_pokemon)  
-    pre_battle.player1_ready = True 
-    os.system("cls")
-    pre_battle.last_frame()
-    player2_action = pre_battle_interface(player2, pre_battle.player2_pokemon)
-    pre_battle.player2_ready = True
-    os.system("cls")
-    pre_battle.last_frame()
-    time.sleep(1)
+    battle_stats = Pre_Battle_Animation(player1_pokemon, player2_pokemon)
+    battle_stats.randomizer_animation()
 
-    battle = Battle_Animation(pre_battle.player1_pokemon, pre_battle.player2_pokemon, pre_battle.battlefield)
-    if pre_battle.player1_pokemon.power > pre_battle.player2_pokemon.power:
+    player1_temporary_buff = False
+    player2_temporary_buff = False
+
+    if battle_stats.battlefield == colored("Waterfall Arena", "blue", attrs=["bold"]) and battle_stats.player1_pokemon.type == "water":
+        battle_stats.player1_buff(10)
+        player1_temporary_buff = True
+    if battle_stats.battlefield == colored("Volcanic Field", "red", attrs=["bold"]) and battle_stats.player1_pokemon.type == "fire":
+        battle_stats.player1_buff(10)
+        player1_temporary_buff = True
+    if battle_stats.battlefield == colored("Green Land", "green", attrs=["bold"]) and battle_stats.player1_pokemon.type == "grass":
+        battle_stats.player1_buff(10)
+        player1_temporary_buff = True
+    if battle_stats.battlefield == colored("Waterfall Arena", "blue", attrs=["bold"]) and battle_stats.player2_pokemon.type == "water":
+        battle_stats.player2_buff(10)
+        player2_temporary_buff = True
+    if battle_stats.battlefield == colored("Volcanic Field", "red", attrs=["bold"]) and battle_stats.player2_pokemon.type == "fire":
+        battle_stats.player2_buff(10)
+        player2_temporary_buff = True
+    if battle_stats.battlefield == colored("Green Land", "green", attrs=["bold"]) and battle_stats.player2_pokemon.type == "grass":
+        battle_stats.player2_buff(10)
+        player2_temporary_buff = True
+        
+
+    def pre_battle_interface(player_name: str, player_pokemon: object):
+        while True:
+            print("1. Fight")
+            print("2. Pokemon")
+            print("3. Record")
+            print("4. Run")
+            choice = int(input(f"What will {player_name} do? "))
+            if choice in list(range(1, 5)):
+                os.system("cls")
+                battle_stats.last_frame()
+                if choice == 1:
+                    print(f"\nYou randomly sent {player_pokemon.name}\n")
+                    while True:   
+                        print("1. Attack")
+                        print("2. Poison Spell")
+                        print("3. Potion Spell")
+                        player_action = int(input(f"{player_pokemon.name} will use: "))
+                        if player_action in list(range(1, 4)): 
+                            return player_action
+                        else:
+                            print(f"{player_action} was not a valid keyword\n")
+                if choice == 2:
+                    pass
+                if choice == 3:
+                    pass
+                if choice == 4:
+                    pass
+            else:
+                print(f"{choice} was not a valid keyword\n")
+
+
+    player1_action = pre_battle_interface(player1, battle_stats.player1_pokemon)  
+    battle_stats.player1_ready = True 
+    os.system("cls")
+    battle_stats.last_frame()
+    player2_action = pre_battle_interface(player2, battle_stats.player2_pokemon)
+    battle_stats.player2_ready = True
+    os.system("cls")
+    battle_stats.last_frame()
+    time.sleep(1)
+    battle = Battle_Animation(battle_stats.player1_pokemon, battle_stats.player2_pokemon, battle_stats.battlefield)
+    if battle_stats.player1_pokemon.power > battle_stats.player2_pokemon.power:
         battle.player1_won()
-    elif pre_battle.player1_pokemon.power < pre_battle.player2_pokemon.power:
+        battle_stats.player1_health_increase(5)
+        battle_stats.player2_health_decrease(10)
+        battle_stats.fatigue(2)
+    elif battle_stats.player1_pokemon.power < battle_stats.player2_pokemon.power:
         battle.player2_won()
+        battle_stats.player2_health_increase(5)
+        battle_stats.player1_health_decrease(10)
+        battle_stats.fatigue(2)
     else:
         battle.tie()
+        battle_stats.fatigue(2)
