@@ -438,3 +438,7 @@ class Battle_Animation:
         # last frame after the animation
         print("Tie!".center(54))
         sleep(3)
+        
+    def reset(self):
+        self.player2_pokemon.looks = self.original_looks_player2
+        self.player1_pokemon.looks = self.original_looks_player1
