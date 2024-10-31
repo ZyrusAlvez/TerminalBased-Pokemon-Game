@@ -1,5 +1,5 @@
 # Terminal Based Game
-* Improved User Esxperience
+* Improved User Experience
 * Text-based Animation
 * Fair and Balance Power System
 ![image](https://github.com/user-attachments/assets/9fd49631-9865-452c-a5cc-a3bb3c3ad4a4)
