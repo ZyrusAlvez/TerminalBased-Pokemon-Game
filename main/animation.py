@@ -339,7 +339,7 @@ class Pre_Battle_Animation:
     
     def player2_use_poison(self):
         self.space_in_round_left += 4
-        self.space_in_round_left += 4
+        self.space_in_round_right += 4
         space_1 = 13
         space_2 = 0
         poison_icon = "☠️"
@@ -382,6 +382,76 @@ class Pre_Battle_Animation:
         self.space_in_health += 4
         self.space_in_round_right -= 4
         self.space_in_round_left -= 4
+        
+    def player1_use_potion(self):
+        self.space_in_round_left += 4            
+        self.space_in_health -= 4
+        while self.player1_pokemon.health != self.player1_pokemon.initial_health:
+            self.player1_pokemon.health += 1
+            print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Not Ready', 'red', attrs=['bold'])}")
+            print("——————————————————————————————————————————————————————")
+            print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+            print("——————————————————————————————————————————————————————")
+            print(f"❤️  {self.player1_pokemon.health}  ⬆️ {' ' * self.space_in_health}{self.player2_pokemon.health} ❤️")
+            print("——————————————————————————————————————————————————————")
+            print(colored(f"=================[{self.player1_pokemon.looks}🧪            {self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+            print("——————————————————————————————————————————————————————")
+            print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+            print("——————————————————————————————————————————————————————")
+            print(f"{self.player1_pokemon.name} restore its full health points")
+            sleep(0.08)
+            system("cls")
+        print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Not Ready', 'red', attrs=['bold'])}")
+        print("——————————————————————————————————————————————————————")
+        print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+        print("——————————————————————————————————————————————————————")
+        print(f"❤️  {self.player1_pokemon.health}  ⬆️ {' ' * self.space_in_health}{self.player2_pokemon.health} ❤️")
+        print("——————————————————————————————————————————————————————")
+        print(colored(f"=================[{self.player1_pokemon.looks}🧪            {self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+        print("——————————————————————————————————————————————————————")
+        print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+        print("——————————————————————————————————————————————————————")
+        print(f"{self.player1_pokemon.name} restore its full health points")
+        sleep(2)
+        system("cls")
+        self.space_in_health += 4
+        self.space_in_round_left -= 4
+        
+    def player2_use_potion(self):
+        self.space_in_round_left += 4
+        self.space_in_round_right += 4            
+        self.space_in_health -= 4
+        while self.player2_pokemon.health != self.player2_pokemon.initial_health:
+            self.player2_pokemon.health += 1
+            print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Ready', 'green', attrs=['bold'])}")
+            print("——————————————————————————————————————————————————————")
+            print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+            print("——————————————————————————————————————————————————————")
+            print(f"❤️  {self.player1_pokemon.health}{' ' * self.space_in_health} ⬆️  {self.player2_pokemon.health} ❤️")
+            print("——————————————————————————————————————————————————————")
+            print(colored(f"=================[{self.player1_pokemon.looks}            🧪{self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+            print("——————————————————————————————————————————————————————")
+            print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+            print("——————————————————————————————————————————————————————")
+            print(f"{self.player1_pokemon.name} restore its full health points")
+            sleep(0.08)
+            system("cls")
+        print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Ready', 'green', attrs=['bold'])}")
+        print("——————————————————————————————————————————————————————")
+        print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+        print("——————————————————————————————————————————————————————")
+        print(f"❤️  {self.player1_pokemon.health}{' ' * self.space_in_health} ⬆️  {self.player2_pokemon.health} ❤️")
+        print("——————————————————————————————————————————————————————")
+        print(colored(f"=================[{self.player1_pokemon.looks}            🧪{self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+        print("——————————————————————————————————————————————————————")
+        print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+        print("——————————————————————————————————————————————————————")
+        print(f"{self.player1_pokemon.name} restore its full health points")
+        self.space_in_health += 4
+        self.space_in_round_left -= 4
+        self.space_in_round_right -= 4
+        sleep(2)
+        system("cls")
         
 class Battle_Animation:
     round = 0

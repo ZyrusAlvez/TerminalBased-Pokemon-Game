@@ -67,12 +67,11 @@ while True:
     round_history = []
     battle_stats = Pre_Battle_Animation(player1_pokemon, player2_pokemon)
     battle_stats.randomizer_animation()
-    
+    {colored(player1, 'yellow', attrs=['bold'])}
     if clean(battle_stats.player1_pokemon.name) not in player1_used_pokemons:
         player1_used_pokemons.append(clean(battle_stats.player1_pokemon.name))
     if clean(battle_stats.player2_pokemon.name) not in player2_used_pokemons:
         player2_used_pokemons.append(clean(battle_stats.player2_pokemon.name))
-        
     round_history.append(battle_stats.round)
     round_history.append(f"Player 1's {battle_stats.player1_pokemon.name} vs Player's 2 {battle_stats.player2_pokemon.name}")
     player1_temporary_buff = False
@@ -117,7 +116,29 @@ while True:
                             player_action = input(f"{player_pokemon.name} will use: ")
                             if player_action.isdigit():
                                 player_action = int(player_action)
-                                if player_action in list(range(1, 4)): 
+                                if player_action in list(range(1, 4)):
+                                    if player_name == player1 and player1_use_poison and player_action == 2:
+                                        os.system("cls")
+                                        battle_stats.last_frame()
+                                        print(f"\n{colored(player1, 'yellow', attrs=['bold'])} poison is already used")
+                                        continue
+                                    if player_name == player2 and player2_use_poison and player_action == 2:
+                                        os.system("cls")
+                                        battle_stats.last_frame()
+                                        print(f"\n{colored(player2, 'yellow', attrs=['bold'])} poison is already used")
+                                        continue
+                                    if player_name == player1 and player1_use_potion and player_action == 3:
+                                        os.system("cls")
+                                        battle_stats.last_frame()
+                                        print(f"\n{colored(player1, 'yellow', attrs=['bold'])} potion is already used")
+                                        continue
+                                    if player_name == player2 and player2_use_potion and player_action == 3:
+                                        os.system("cls")
+                                        battle_stats.last_frame()
+                                        print(f"\n{colored(player2, 'yellow', attrs=['bold'])} potion is already used")
+                                        continue
+                                    
+                                    # If there is no error input, proceed to animation part
                                     return player_action
                                 else:
                                     os.system("cls")
@@ -141,6 +162,7 @@ while True:
                         os.system("cls")
                         battle_stats.last_frame()
                     if choice == 3:
+                        print("")
                         print(tabulate(history, headers=[colored("Round no.", "yellow", attrs=["bold"]), colored("Match", "yellow", attrs=["bold"]), colored("Status", "yellow", attrs=["bold"])], tablefmt="github", numalign="center"))
                         input("\nPress any key to back: ")
                         os.system("cls")
@@ -180,13 +202,21 @@ while True:
     os.system("cls")
     battle_stats.player1_ready = True
     if player1_action == 2:
-        battle_stats.player1_use_poison()    
+        player1_use_poison = True
+        battle_stats.player1_use_poison()
+    if player1_action == 3:
+        player1_use_potion = True
+        battle_stats.player1_use_potion()    
     battle_stats.last_frame()
     player2_action = pre_battle_interface(player2, battle_stats.player2_pokemon)
     os.system("cls")
     battle_stats.player2_ready = True
     if player2_action == 2:
+        player2_use_poison = True
         battle_stats.player2_use_poison()    
+    if player2_action == 3:
+        player2_use_potion = True
+        battle_stats.player2_use_potion()    
     battle_stats.last_frame()
     time.sleep(1)
     battle = Battle_Animation(battle_stats.player1_pokemon, battle_stats.player2_pokemon, battle_stats.battlefield)
