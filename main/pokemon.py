@@ -16,3 +16,4 @@ class Pokemon:
         self.health = health
         self.power = power
         self.looks = looks
+        self.initial_health = health

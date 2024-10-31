@@ -155,7 +155,7 @@ class Pre_Battle_Animation:
         self.space_in_power += 4
         self.last_frame()
         
-    def player1_health_increase(self, rate:int):
+    def player1_health_increase(self, rate:int, fps:float = 0.2):
         self.post_battle_msg.append(f"{self.player1_pokemon.name} gain {rate} health points")
         system("cls")
         self.last_frame(False)
@@ -178,11 +178,11 @@ class Pre_Battle_Animation:
             print("——————————————————————————————————————————————————————")
             for msg in self.post_battle_msg:
                 print(msg)
-            sleep(0.3)
+            sleep(fps)
             system("cls")
         self.space_in_health += 4
         
-    def player2_health_increase(self, rate:int):
+    def player2_health_increase(self, rate:int, fps:float = 0.2):
         self.post_battle_msg.append(f"{self.player2_pokemon.name} gain {rate} health points")
         system("cls")
         self.last_frame(False)
@@ -205,11 +205,11 @@ class Pre_Battle_Animation:
             print("——————————————————————————————————————————————————————")
             for msg in self.post_battle_msg:
                 print(msg)
-            sleep(0.3)
+            sleep(fps)
             system("cls")
         self.space_in_health += 4
         
-    def player1_health_decrease(self, rate:int):
+    def player1_health_decrease(self, rate:int, fps:float = 0.2):
         self.post_battle_msg.append(f"{self.player1_pokemon.name} lose {rate} health points")
         system("cls")
         self.last_frame(False)
@@ -232,11 +232,11 @@ class Pre_Battle_Animation:
             print("——————————————————————————————————————————————————————")
             for msg in self.post_battle_msg:
                 print(msg)
-            sleep(0.3)
+            sleep(fps)
             system("cls")
         self.space_in_health += 4
         
-    def player2_health_decrease(self, rate:int):
+    def player2_health_decrease(self, rate:int, fps:float = 0.2):
         self.post_battle_msg.append(f"{self.player2_pokemon.name} lose {rate} health points")
         system("cls")
         self.last_frame(False)
@@ -259,7 +259,7 @@ class Pre_Battle_Animation:
             print("——————————————————————————————————————————————————————")
             for msg in self.post_battle_msg:
                 print(msg)
-            sleep(0.3)
+            sleep(fps)
             system("cls")
         self.space_in_health += 4
         
@@ -293,6 +293,96 @@ class Pre_Battle_Animation:
             system("cls")      
         self.space_in_health += 8
 
+    def player1_use_poison(self):
+        self.space_in_round_left += 4
+        space_1 = 0
+        space_2 = 13
+        poison_icon = "☠️"
+        for i in range(13):
+            print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Not Ready', 'red', attrs=['bold'])}")
+            print("——————————————————————————————————————————————————————")
+            print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+            print("——————————————————————————————————————————————————————")
+            print(f"❤️  {self.player1_pokemon.health}{' ' * self.space_in_health}{self.player2_pokemon.health} ❤️")
+            print("——————————————————————————————————————————————————————")
+            print(colored(f"=================[{self.player1_pokemon.looks}{' '*space_1}{poison_icon}{' '*space_2}{self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+            print("——————————————————————————————————————————————————————")
+            print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+            print("——————————————————————————————————————————————————————")
+            print(f"{colored('Player 1', 'yellow', attrs=['bold'])} used poison on {self.player2_pokemon.name}")
+            space_1 += 1
+            space_2 -= 1
+            if i == 12:
+                poison_icon = '  '
+            sleep(0.3)
+            system("cls")
+            
+        self.space_in_health -= 4
+        hp_lost = self.player2_pokemon.health//2
+        for _ in range(hp_lost):
+            self.player2_pokemon.health -= 1
+            print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Not Ready', 'red', attrs=['bold'])}")
+            print("——————————————————————————————————————————————————————")
+            print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+            print("——————————————————————————————————————————————————————")
+            print(f"❤️  {self.player1_pokemon.health}{' ' * self.space_in_health} ⬇️  {self.player2_pokemon.health} ❤️")
+            print("——————————————————————————————————————————————————————")
+            print(colored(f"=================[{self.player1_pokemon.looks}              {self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+            print("——————————————————————————————————————————————————————")
+            print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+            print("——————————————————————————————————————————————————————")
+            print(f"{self.player2_pokemon.name} lost {hp_lost} health points")
+            sleep(0.08)
+            system("cls")
+        self.space_in_health += 4
+        self.space_in_round_left -= 4
+    
+    def player2_use_poison(self):
+        self.space_in_round_left += 4
+        self.space_in_round_left += 4
+        space_1 = 13
+        space_2 = 0
+        poison_icon = "☠️"
+        for i in range(13):
+            print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Ready', 'green', attrs=['bold'])}")
+            print("——————————————————————————————————————————————————————")
+            print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+            print("——————————————————————————————————————————————————————")
+            print(f"❤️  {self.player1_pokemon.health}{' ' * self.space_in_health}{self.player2_pokemon.health} ❤️")
+            print("——————————————————————————————————————————————————————")
+            print(colored(f"=================[{self.player1_pokemon.looks}{' '*space_1}{poison_icon}{' '*space_2}{self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+            print("——————————————————————————————————————————————————————")
+            print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+            print("——————————————————————————————————————————————————————")
+            print(f"{colored('Player 2', 'yellow', attrs=['bold'])} used poison on {self.player1_pokemon.name}")
+            space_1 -= 1
+            space_2 += 1
+            if i == 12:
+                poison_icon = '  '
+            sleep(0.3)
+            system("cls")
+            
+        self.space_in_health -= 4
+        hp_lost = self.player1_pokemon.health//2
+        for _ in range(hp_lost):
+            self.player1_pokemon.health -= 1
+            print(f"{colored('Ready', 'green', attrs=['bold'])}{' ' * self.space_in_round_left}Round {Pre_Battle_Animation.round} - {self.battlefield}{' ' * self.space_in_round_right}{colored('Ready', 'green', attrs=['bold'])}")
+            print("——————————————————————————————————————————————————————")
+            print(f"Player 1's {self.player1_pokemon.name}{' ' * self.space_in_title}Player 2's {self.player2_pokemon.name}")
+            print("——————————————————————————————————————————————————————")
+            print(f"❤️  {self.player1_pokemon.health} ⬇️  {' ' * self.space_in_health}{self.player2_pokemon.health} ❤️")
+            print("——————————————————————————————————————————————————————")
+            print(colored(f"=================[{self.player1_pokemon.looks}              {self.player2_pokemon.looks}]=================", self.battlefield_color, attrs=["bold"]))
+            print("——————————————————————————————————————————————————————")
+            print(f"⚔️  {self.player1_pokemon.power}{' ' * self.space_in_power}{self.player2_pokemon.power} ⚔️")
+            print("——————————————————————————————————————————————————————")
+            print(f"{self.player1_pokemon.name} lost {hp_lost} health points")
+            sleep(0.08)
+            system("cls")
+        self.space_in_health += 4
+        self.space_in_round_right -= 4
+        self.space_in_round_left -= 4
+        
 class Battle_Animation:
     round = 0
     def __init__(self, player1_pokemon: object, player2_pokemon: object, battlefield: str):

@@ -112,8 +112,8 @@ while True:
                     if choice == 1:
                         while True:   
                             print("\n1. Attack")
-                            print("2. Poison Spell")
-                            print("3. Potion Spell")
+                            print("2. Poison Spell (Deals 50% of Enemy Pokemon's current health)")
+                            print("3. Potion Spell (Restore your Pokemon's initial health)")
                             player_action = input(f"{player_pokemon.name} will use: ")
                             if player_action.isdigit():
                                 player_action = int(player_action)
@@ -132,16 +132,16 @@ while True:
                         pokemon_data_player2 = [[f"{i}", pokemon.name, pokemon.type, pokemon.health, pokemon.power] for i, pokemon in enumerate(player2_pokemon, 1)]
                         print("")
                         if player_name == player1:
+                            print("Player 1 Current Pokemon Data")
                             print(tabulate(pokemon_data_player1, headers=pokemon_table_header, tablefmt="github", numalign="center"))
                         if player_name == player2:
+                            print("Player 2 Current Pokemon Data")
                             print(tabulate(pokemon_data_player2, headers=pokemon_table_header, tablefmt="github", numalign="center"))
                         input("\nPress any key to back: ")
                         os.system("cls")
                         battle_stats.last_frame()
                     if choice == 3:
                         print(tabulate(history, headers=[colored("Round no.", "yellow", attrs=["bold"]), colored("Match", "yellow", attrs=["bold"]), colored("Status", "yellow", attrs=["bold"])], tablefmt="github", numalign="center"))
-                        print(player1_used_pokemons)
-                        print(player2_used_pokemons)
                         input("\nPress any key to back: ")
                         os.system("cls")
                         battle_stats.last_frame()
@@ -176,13 +176,17 @@ while True:
                 battle_stats.last_frame()
                 print(f"{colored(choice, 'yellow', attrs=['underline'])} was not a valid keyword\n")
 
-    player1_action = pre_battle_interface(player1, battle_stats.player1_pokemon)  
-    battle_stats.player1_ready = True
+    player1_action = pre_battle_interface(player1, battle_stats.player1_pokemon)
     os.system("cls")
+    battle_stats.player1_ready = True
+    if player1_action == 2:
+        battle_stats.player1_use_poison()    
     battle_stats.last_frame()
     player2_action = pre_battle_interface(player2, battle_stats.player2_pokemon)
-    battle_stats.player2_ready = True
     os.system("cls")
+    battle_stats.player2_ready = True
+    if player2_action == 2:
+        battle_stats.player2_use_poison()    
     battle_stats.last_frame()
     time.sleep(1)
     battle = Battle_Animation(battle_stats.player1_pokemon, battle_stats.player2_pokemon, battle_stats.battlefield)
