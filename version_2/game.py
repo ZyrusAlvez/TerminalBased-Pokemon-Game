@@ -243,3 +243,22 @@ while True:
         battle.player2_pokemon.power -= 10
     i += 1
     history.append(round_history)
+    
+    if battle_stats.round % 3 == 0:
+        print(tabulate(history, headers=[colored("Round no.", "yellow", attrs=["bold"]), colored("Match", "yellow", attrs=["bold"]), colored("Status", "yellow", attrs=["bold"])], tablefmt="github", numalign="center"))
+        total_player1_health = sum([pokemon.health for pokemon in player1_pokemon])
+        total_player2_health = sum([pokemon.health for pokemon in player2_pokemon])
+        print(f"\nPlayer 1 Overall Pokemon's Health: {colored(total_player1_health, 'yellow', attrs=['bold', 'underline'])}")
+        print(f"Player 2 Overall Pokemon's Health: {colored(total_player2_health, 'yellow', attrs=['bold', 'underline'])}")
+        print(f"\n❗Player's Overall Pokemon's Health is out basis of the Winner ❗\n")
+        
+        if total_player1_health > total_player2_health:
+            print(f"{colored(player1, 'yellow', attrs=['bold'])} is the currently overall Winner!")
+        elif total_player1_health < total_player2_health:
+            print(f"{colored(player2, 'yellow', attrs=['bold'])} is the currently overall Winner!")
+        else:
+            print(f"It's a tie")
+
+        x = input("\nPress any key to continue or x to exit: ")
+        if x.lower() == "x":
+            exit()
